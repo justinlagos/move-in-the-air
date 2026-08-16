@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Move in the Air — Spike</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: #000;
+        color: #fff;
+        font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+      }
+      #app {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+      }
+      #canvas {
+        display: block;
+        width: 100%;
+        height: 100%;
+        background: #000;
+      }
+      #video {
+        display: none;
+      }
+      #hud {
+        position: fixed;
+        top: 12px;
+        left: 12px;
+        font-size: 14px;
+        font-family: ui-monospace, "SF Mono", Menlo, monospace;
+        background: rgba(0, 0, 0, 0.55);
+        padding: 8px 12px;
+        border-radius: 8px;
+        line-height: 1.55;
+        pointer-events: none;
+        z-index: 10;
+        min-width: 180px;
+      }
+      #hud .label {
+        color: #aaa;
+      }
+      #controls {
+        position: fixed;
+        bottom: 14px;
+        left: 14px;
+        display: flex;
+        gap: 8px;
+        z-index: 10;
+      }
+      button {
+        background: #1a1a1a;
+        color: #fff;
+        border: 1px solid #333;
+        border-radius: 8px;
+        padding: 9px 14px;
+        font-size: 14px;
+        cursor: pointer;
+        font-family: inherit;
+      }
+      button:hover {
+        background: #262626;
+      }
+      button:active {
+        background: #0e0e0e;
+      }
+      #status {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 18px;
+        text-align: center;
+        z-index: 5;
+        max-width: 80%;
+        line-height: 1.5;
+      }
+      #help {
+        position: fixed;
+        bottom: 14px;
+        right: 14px;
+        font-size: 12px;
+        color: #888;
+        font-family: ui-monospace, "SF Mono", Menlo, monospace;
+        z-index: 10;
+        background: rgba(0, 0, 0, 0.4);
+        padding: 6px 10px;
+        border-radius: 6px;
+      }
+    </style>
+    <script type="module" src="/src/main.ts"></script>
+  </head>
+  <body>
+    <div id="app">
+      <video id="video" autoplay playsinline muted></video>
+      <canvas id="canvas"></canvas>
+
+      <div id="hud">
+        <div><span class="label">FPS:</span> <span id="fps">--</span></div>
+        <div><span class="label">Detect:</span> <span id="latency">--</span> ms</div>
+        <div><span class="label">Confidence:</span> <span id="confidence">--</span></div>
+        <div><span class="label">Status:</span> <span id="trackingStatus">starting</span></div>
+      </div>
+
+      <div id="controls">
+        <button id="fullscreenBtn">Fullscreen</button>
+        <button id="mirrorBtn">Mirror: On</button>
+        <button id="smoothingBtn">Smoothing: On</button>
+        <button id="hudBtn">HUD: On</button>
+      </div>
+
+      <div id="help">f = fullscreen · m = mirror · s = smoothing · h = HUD</div>
+
+      <div id="status">Loading pose model…</div>
+    </div>
+  </body>
+</html>
